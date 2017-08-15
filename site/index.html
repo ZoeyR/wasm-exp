@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <script>
+        // This is read and used by `site.js`
+        var Module = {
+            wasmBinaryFile: "site.wasm",
+            postRun: function () {
+                const add = cwrap('add', 'number', ['number', 'number'])
+                const param1 = 1;
+                const param2 = 2;
+
+                let content = document.getElementById("content");
+                let add_node = document.createElement("div");
+                add_node.innerText = `Calling add(${param1},${param2}) in Rust from js, result: ${add(param1, param2)}`;
+                content.appendChild(add_node);
+            }
+        }
+    </script>
+    <script src="site.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+</body>
+
+</html>
